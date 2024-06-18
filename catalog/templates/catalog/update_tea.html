@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Tea</title>
+</head>
+<body>
+    <h1>Update Tea</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Changes">
+    </form>
+
+    <p><a href="{% url 'tea_list' %}">Cancel and return to tea list</a></p>
+</body>
+</html>

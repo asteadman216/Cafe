@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee List</title>
+</head>
+<body>
+    <h1>Coffee Menu</h1>
+    <ul>
+        {% for coffee in coffees %}
+        <li>{{ coffee.get_drink_size_display }} {{ coffee.get_drink_flavor_display }} ({{ coffee.get_drink_temp_display }} {{ coffee.get.drink_type_display }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Coffee</title>
+</head>
+<body>
+    <h1>Update Coffee</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Changes">
+    </form>
+
+    <p><a href="{% url 'coffee_list' %}">Cancel and return to coffee list</a></p>
+</body>
+</html>

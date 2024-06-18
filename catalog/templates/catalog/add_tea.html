@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Tea</title>
+</head>
+<body>
+    <h1>Add Tea</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'tea_list' %}">Back to Tea List</a>
+</body>
+</html>

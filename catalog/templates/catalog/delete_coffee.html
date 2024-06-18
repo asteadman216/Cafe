@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Coffee</title>
+</head>
+<body>
+    <h1>Delete Coffee</h1>
+    <p>Are you sure you want to delete the coffee? "{{ coffee.get_drink_size_display }} {{ coffee.get_drink_flavor_display }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+    </form>
+
+    <p><a href="{% url 'coffee_list' %}">Cancel and return to coffee list</a></p>
+</body>
+</html>

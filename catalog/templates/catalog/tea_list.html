@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tea List</title>
+</head>
+<body>
+    <h1>Tea Menu</h1>
+    <ul>
+        {% for tea in teas %}
+        <li>{{ tea.get_drink_size_display }} {{ tea.get_drink_flavor_display }} ({{ tea.get_drink_temp_display }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

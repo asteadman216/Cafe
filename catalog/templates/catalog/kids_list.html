@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kid's Drink List</title>
+</head>
+<body>
+    <h1>Kid's Drink Menu</h1>
+    <ul>
+        {% for kids in kids %}
+        <li>{{ kids.get_drink_size_display }} {{ kids.get_drink_flavor_display }} ({{ kids.get_drink_temp_display }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
