@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coffee Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .filter-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .filter-form form {
+            display: flex;
+            gap: 10px;
+        }
+        .filter-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .filter-form button:hover {
+            background-color: #45a049;
+        }
+        .coffee-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .coffee-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .coffee-item h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .coffee-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coffee Menu</h1>
+    <div class="filter-form">
+        <form method="get">
+            {{ form.as_p }}
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <div class="coffee-list">
+        {% for coffee in coffees %}
+            <div class="coffee-item">
+                <h2>{{ coffee.get_drink_type_display }}</h2>
+                <p><strong>Size:</strong> {{ coffee.get_drink_size_display }}</p>
+                <p><strong>Flavor:</strong> {{ coffee.get_drink_flavor_display }}</p>
+                <p><strong>Temperature:</strong> {{ coffee.get_drink_temp_display }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

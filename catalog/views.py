@@ -9,7 +9,13 @@ from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from .models import Coffee, Tea, Kids
 from .forms import CoffeeForm, TeaForm, KidsForm
-
+from django.contrib.auth.views import LoginView
+from .forms import CoffeeFilterForm
+from .forms import TeaFilterForm
+from .forms import KidsFilterForm
+from django.contrib.auth.decorators import login_required
+from .models import Product, CartItem
+from .forms import CartAddProductForm
 def home(request):
     return render(request, 'home.html')
 
@@ -211,3 +217,99 @@ class KidsUpdateView(UpdateView):
     def get_object(self, queryset=None):
         # Get the Coffee object based on the URL parameter 'pk'
         return get_object_or_404(Kids, pk=self.kwargs['pk'])
+
+class CustomLoginView(LoginView):
+    template_name = 'catalog/login.html'
+
+def coffee_menu(request):
+    form = CoffeeFilterForm(request.GET)
+    coffees = Coffee.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['drink_type']:
+            coffees = coffees.filter(drink_type=form.cleaned_data['drink_type'])
+        if form.cleaned_data['drink_temp']:
+            coffees = coffees.filter(drink_temp=form.cleaned_data['drink_temp'])
+        if form.cleaned_data['drink_flavor']:
+            coffees = coffees.filter(drink_flavor=form.cleaned_data['drink_flavor'])
+        if form.cleaned_data['drink_size']:
+            coffees = coffees.filter(drink_size=form.cleaned_data['drink_size'])
+
+    context = {
+        'form': form,
+        'coffees': coffees
+    }
+    return render(request, 'catalog/coffee_menu.html', context)
+
+def tea_menu(request):
+    form = TeaFilterForm(request.GET)
+    teas = Tea.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['drink_type']:
+            teas = tea.filter(drink_tea=form.cleaned_data['drink_type'])
+        if form.cleaned_data['drink_temp']:
+            teas = tea.filter(drink_temp=form.cleaned_data['drink_temp'])
+        if form.cleaned_data['drink_flavor']:
+            teas = tea.filter(drink_tea_syrup=form.cleaned_data['drink_flavor'])
+        if form.cleaned_data['drink_size']:
+            teas = tea.filter(drink_size=form.cleaned_data['drink_size'])
+
+    context = {
+        'form': form,
+        'teas': teas
+    }
+    return render(request, 'catalog/tea_menu.html', context)
+
+def kids_menu(request):
+    form = KidsFilterForm(request.GET)
+    kids = Kids.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['drink_type']:
+            kids = kids.filter(drink_kids=form.cleaned_data['drink_type'])
+        if form.cleaned_data['drink_temp']:
+            kids = kids.filter(drink_temp=form.cleaned_data['drink_temp'])
+        if form.cleaned_data['drink_flavor']:
+            kids = kids.filter(drink_kids_flavor=form.cleaned_data['drink_flavor'])
+        if form.cleaned_data['drink_size']:
+            kids = kids.filter(drink_size=form.cleaned_data['drink_size'])
+
+    context = {
+        'form': form,
+        'kids': kids
+    }
+    return render(request, 'catalog/kids_menu.html', context)
+
+@login_required
+def cart_detail(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'cart/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
+
+@login_required
+def add_to_cart(request, product_id):
+    product = Product.objects.get(id=product_id)
+    cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    return redirect('cart_detail')
+
+@login_required
+def remove_from_cart(request, cart_item_id):
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    cart_item.delete()
+    return redirect('cart_detail')
+
+@login_required
+def update_cart(request, cart_item_id):
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    if request.method == 'POST':
+        form = CartAddProductForm(request.POST, instance=cart_item)
+        if form.is_valid():
+            form.save()
+            return redirect('cart_detail')
+    else:
+        form = CartAddProductForm(instance=cart_item)
+    return render(request, 'cart/update_cart.html', {'form': form, 'cart_item': cart_item})
