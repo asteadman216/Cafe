@@ -9,6 +9,7 @@ urlpatterns = [
     path('teas/', include('catalog.urls_teas')),
     path('kids/', include('catalog.urls_kids')),
     path('catalog/', include('catalog.urls')),  # Include your app's URLs
+    path('register/', include('register.urls')),
 ]
 
 

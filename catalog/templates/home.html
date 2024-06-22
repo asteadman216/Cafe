@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +29,12 @@
         </form>
     {% else %}
         <a href="{% url 'login' %}"><button>Login</button></a>
+        <a href="{% url 'register' %}"><button>Sign Up</button></a>
     {% endif %}
     <a href="{% url 'cart_detail' %}" class="cart-button">View Cart</a>
+
+    {% block content %}
+    {% endblock %}
+
 </body>
 </html>
