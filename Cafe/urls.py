@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from catalog import views as catalog_views
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,5 +13,3 @@ urlpatterns = [
     path('catalog/', include('catalog.urls')),  # Include your app's URLs
     path('register/', include('register.urls')),
 ]
-
-
