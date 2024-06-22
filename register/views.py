@@ -1,21 +1,21 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
-from django.contrib.auth.models import User,Group
+from django.contrib.auth.models import User, Group
 
-# Create your views here.
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            uname = form.cleaned_data['username']
             form.save()
-        # adding new user
+            uname = form.cleaned_data['username']
             user = User.objects.get(username=uname)
             lib_group = Group.objects.get(name='customer')
             user.groups.add(lib_group)
             user.save()
-            return redirect('login')
-        return redirect("index")
+            return redirect('home')  # Redirect to 'home' after successful registration
+        else:
+            # If form is not valid, render the registration form with errors
+            return render(request, "register.html", {"form": form})
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
