@@ -1,4 +1,7 @@
-# views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .models import Coffee
 
 from django.shortcuts import render, get_object_or_404, redirect, render
 from django.views.generic import DetailView
@@ -218,28 +221,34 @@ class KidsUpdateView(UpdateView):
         # Get the Coffee object based on the URL parameter 'pk'
         return get_object_or_404(Kids, pk=self.kwargs['pk'])
 
-class CustomLoginView(LoginView):
-    template_name = 'catalog/login.html'
+def custom_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # Redirect to a success page.
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
+def custom_logout(request):
+    logout(request)
+    return redirect('home')
 def coffee_menu(request):
-    form = CoffeeFilterForm(request.GET)
-    coffees = Coffee.objects.all()
-
-    if form.is_valid():
-        if form.cleaned_data['drink_type']:
-            coffees = coffees.filter(drink_type=form.cleaned_data['drink_type'])
-        if form.cleaned_data['drink_temp']:
-            coffees = coffees.filter(drink_temp=form.cleaned_data['drink_temp'])
-        if form.cleaned_data['drink_flavor']:
-            coffees = coffees.filter(drink_flavor=form.cleaned_data['drink_flavor'])
-        if form.cleaned_data['drink_size']:
-            coffees = coffees.filter(drink_size=form.cleaned_data['drink_size'])
-
-    context = {
-        'form': form,
-        'coffees': coffees
-    }
-    return render(request, 'catalog/coffee_menu.html', context)
+    coffee_types = [choice[0] for choice in Coffee.DRINK_TYPE_CHOICES]
+    flavors = Coffee.DRINK_FLAVOR_CHOICES
+    temperatures = Coffee.DRINK_TEMP_CHOICES
+    sizes = Coffee.DRINK_SIZE_CHOICES
+    return render(request, 'coffee_menu.html', {
+        'coffee_types': coffee_types,
+        'flavors': flavors,
+        'temperatures': temperatures,
+        'sizes': sizes,
+    })
 
 def tea_menu(request):
     form = TeaFilterForm(request.GET)
@@ -313,3 +322,6 @@ def update_cart(request, cart_item_id):
     else:
         form = CartAddProductForm(instance=cart_item)
     return render(request, 'cart/update_cart.html', {'form': form, 'cart_item': cart_item})
+
+def home(request):
+    return render(request, 'home.html')

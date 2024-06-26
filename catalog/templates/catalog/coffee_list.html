@@ -1,17 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>Coffee List</title>
 </head>
 <body>
-    <h1>Coffee Menu</h1>
-    <ul>
-        {% for coffee in coffees %}
-        <li>{{ coffee.get_drink_size_display }} {{ coffee.get_drink_flavor_display }} ({{ coffee.get_drink_temp_display }} {{ coffee.get.drink_type_display }})</li>
-        {% endfor %}
-    </ul>
+<h1>Coffee Menu</h1>
+    <div class="menu-section">
+        <h2>Coffee Type</h2>
+        <h4>Lattes, Drip Brews, and Americanos may be served hot or iced</h4>
+        <dl>
+            <dt>Latte</dt>
+            <dd>Espresso with Milk</dd>
+            <dt>Pour Over</dt>
+            <dd>Coarse ground coffee brewed to order</dd>
+            <dt>Drip Brew</dt>
+            <dd>Traditional brewed coffee</dd>
+            <dt>Americano</dt>
+            <dd>Espresso and water</dd>
+            <dt>Capuccino</dt>
+            <dd>Espresso with steamed milk and foam</dd>
+        </dl>
+        <h2>Flavors Options</h2>
+        <h4>Add up to 3 flavor syrups to any coffee type</h4>
+        <select id="flavorSelect">
+            <option value="vanilla">Vanilla</option>
+            <option value="hazelnut">Hazelnut</option>
+            <option value="caramel">Caramel</option>
+            <option value="white mocha">White Mocha</option>
+            <option value="mocha">Mocha</option>
+            <option value="toffee">Toffee</option>
+            <option value="butterscotch">Butterscotch</option>
+            <option value="sugar free vanilla">Sugar Free Vanilla</option>
+            <option value="sugar free caramel">Sugar Free Caramel</option>
+            <option value="sugar free mocha">Sugar Free Mocha</option>
+        </select>
+    </div>
+<a href="{% url 'home' %}" class="home-button">Home</a>
+<a href="{% url 'cart_detail' %}" class="cart-button">Add to Cart</a>
 </body>
 </html>
-

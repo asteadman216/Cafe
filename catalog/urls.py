@@ -1,12 +1,11 @@
-# catalog/urls.py
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),  # Home page
-    path('login/', LoginView.as_view(template_name='catalog/login.html'), name='login'),  # Login page
-    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),  # Login page
+    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('coffee-menu/', views.coffee_menu, name='coffee_menu'),
     path('tea-menu/', views.tea_menu, name='tea_menu'),
     path('kids-menu/', views.kids_menu, name='kids_menu'),
