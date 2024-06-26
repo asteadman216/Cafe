@@ -8,13 +8,6 @@ h1 {
     font-weight: normal;
 }
 
-body {
-    background-image: url("mycafe/static/images/coffee3.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    z-index: -1;
-}
-
 .image-contain {
     display: flex;
     justify-content: center;
@@ -27,4 +20,73 @@ body {
     width:30%;
     height:auto;
     align-items: center;
+}
+
+.heading {
+  color:rgb(255, 255, 0);
+  padding: 5px;
+  display:inline;
+  background-color:rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+p {
+  color:rgb(46, 250, 148);
+  padding: 50px;
+  display:inline;
+  background-color:rgba(72, 163, 131, 0.5);
+  text-align: center;
+}
+
+.image-contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: bottom 20px;
+}
+
+.image-small {
+  width:10%;
+  height:auto;
+  align-items:center;
+  margin-top: 15px;
+}
+
+
+.border {
+  border: 5px solid #07bbf2;
+  background-color: rgba(10, 10, 10, 0.5);
+}
+.border1 {
+  background-color: rgba(10, 10, 10, 0.5);
+  color:rgb(255, 255, 255);
+}
+
+.mytable {
+  color:black;
+  background-color: rgb(71, 151, 177);
+  border: 1px solid black;
+  width: 100%;
+}
+
+.mytr {
+  color:black;
+  background-color: rgb(71, 151, 177);
+  border: 1px solid black;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+}
+
+.mycolour {
+  color:rgb(0, 132, 121);
+  background-color: rgb(196, 247, 248);
+  align-items: center;
+}
+
+.mycolour1 {
+  color:rgb(0, 0, 0);
+  background-color: rgb(71, 151, 177);
+  align-items: center;
 }
