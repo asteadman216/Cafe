@@ -3,6 +3,10 @@
 {% load crispy_forms_filters %}
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <title>Registration page</title>
+    <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
+</head>
 {#{% extends "home.html" %}#}
 {% block title %}Create an Account{% endblock %}
 {% load crispy_forms_tags %}
@@ -14,8 +18,8 @@
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Register</button>
     </form>
-    <p><strong>Create an Account</strong>
-        <a href="{% url 'register' %}">Register Now</a>
+    <p><strong>Already have an account </strong>
+        <a href="{% url 'login' %}">Login Now</a>
     </p>
 {% endblock %}
 </html>
