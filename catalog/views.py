@@ -1,21 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Coffee
-
-from django.shortcuts import render, get_object_or_404, redirect, render
-from django.views.generic import DetailView
-from django.views.generic import ListView
-from django.views.generic import CreateView
-from django.views.generic import DeleteView
-from django.views.generic import UpdateView
+from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .models import Coffee, Tea, Kids
 from .forms import CoffeeForm, TeaForm, KidsForm
 from django.contrib.auth.views import LoginView
-from .forms import CoffeeFilterForm
-from .forms import TeaFilterForm
-from .forms import KidsFilterForm
+from .forms import CoffeeFilterForm, TeaFilterForm, KidsFilterForm
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem
 from .forms import CartAddProductForm
@@ -74,7 +66,8 @@ def add_kids(request):
     return render(request, 'add_kids.html', {'form': form})
 
 def coffee_detail(request, pk):
-    coffee = get_object_or_404(Coffee, pk=pk)
+    coffee = Coffee.objects.get(pk=1)
+    price = coffee.get_price()
     return render(request, 'catalog/coffee_detail.html', {'coffee': coffee})
 
 def tea_detail(request, pk):
@@ -238,63 +231,16 @@ def custom_login(request):
 def custom_logout(request):
     logout(request)
     return redirect('home')
-def coffee_menu(request):
-    coffee_types = [choice[0] for choice in Coffee.DRINK_TYPE_CHOICES]
-    flavors = Coffee.DRINK_FLAVOR_CHOICES
-    temperatures = Coffee.DRINK_TEMP_CHOICES
-    sizes = Coffee.DRINK_SIZE_CHOICES
-    return render(request, 'coffee_menu.html', {
-        'coffee_types': coffee_types,
-        'flavors': flavors,
-        'temperatures': temperatures,
-        'sizes': sizes,
-    })
-
-def tea_menu(request):
-    form = TeaFilterForm(request.GET)
-    teas = Tea.objects.all()
-
-    if form.is_valid():
-        if form.cleaned_data['drink_type']:
-            teas = tea.filter(drink_tea=form.cleaned_data['drink_type'])
-        if form.cleaned_data['drink_temp']:
-            teas = tea.filter(drink_temp=form.cleaned_data['drink_temp'])
-        if form.cleaned_data['drink_flavor']:
-            teas = tea.filter(drink_tea_syrup=form.cleaned_data['drink_flavor'])
-        if form.cleaned_data['drink_size']:
-            teas = tea.filter(drink_size=form.cleaned_data['drink_size'])
-
-    context = {
-        'form': form,
-        'teas': teas
-    }
-    return render(request, 'catalog/tea_menu.html', context)
-
-def kids_menu(request):
-    form = KidsFilterForm(request.GET)
-    kids = Kids.objects.all()
-
-    if form.is_valid():
-        if form.cleaned_data['drink_type']:
-            kids = kids.filter(drink_kids=form.cleaned_data['drink_type'])
-        if form.cleaned_data['drink_temp']:
-            kids = kids.filter(drink_temp=form.cleaned_data['drink_temp'])
-        if form.cleaned_data['drink_flavor']:
-            kids = kids.filter(drink_kids_flavor=form.cleaned_data['drink_flavor'])
-        if form.cleaned_data['drink_size']:
-            kids = kids.filter(drink_size=form.cleaned_data['drink_size'])
-
-    context = {
-        'form': form,
-        'kids': kids
-    }
-    return render(request, 'catalog/kids_menu.html', context)
 
 @login_required
 def cart_detail(request):
-    cart_items = CartItem.objects.filter(user=request.user)
+    cart_items = CartItem.objects.filter(cart=cart)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
-    return render(request, 'cart/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    }
+    return render(request, 'cart/templates/catalog/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
 
 @login_required
 def add_to_cart(request, product_id):

@@ -56,8 +56,18 @@ class Coffee(models.Model):
     drink_flavor = models.CharField(max_length=20, choices=DRINK_FLAVOR_CHOICES, default=VANILLA)
     drink_size = models.CharField(max_length=6, choices=DRINK_SIZE_CHOICES, default=MEDIUM)
 
+    def get_price(self):
+        if self.drink_size == self.SMALL:
+            return 4.00
+        elif self.drink_size == self.MEDIUM:
+            return 5.00
+        elif self.drink_size == self.LARGE:
+            return 7.00
+        else:
+            return 0.00 #default price or handle error
+
     def __str__(self):
-        return f"{self.get_drink_type_display()} {self.get_drink_size_display()} {self.get_drink_flavor_display()} ({self.get_drink_temp_display()})"
+        return f"{self.get_drink_type_display()} {self.get_drink_size_display()} {self.get_drink_flavor_display()} {self.get_drink_temp_display()} - ${self.get_price():.2f}"
 
 class Tea(models.Model):
     HOT = 'hot'
