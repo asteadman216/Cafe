@@ -22,40 +22,6 @@ h1 {
     align-items: center;
 }
 
-<<<<<<< HEAD
-.menu-section {
-    margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.menu-section h2 {
-    color: #4CAF50;
-}
-
-.menu-section ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.menu-section ul li {
-    margin: 5px 0;
-}
-
-.menu-section ul li a {
-    text-decoration: none;
-    color: #333;
-    cursor: pointer;
-}
-
-.menu-section ul li a:hover {
-    color: #4CAF50;
-}
-
-.hidden {
-    display: none;
-=======
 .heading {
   color:rgb(255, 255, 0);
   padding: 5px;
@@ -123,5 +89,4 @@ p {
   color:rgb(0, 0, 0);
   background-color: rgb(71, 151, 177);
   align-items: center;
->>>>>>> 8c06f30b86e6da303e0b9edc8cb55375fa21ec29
 }
