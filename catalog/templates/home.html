@@ -31,7 +31,9 @@
         </form>
     {% else %}
         <a href="{% url 'login' %}"><button>Login</button></a>
-        <a href="{% url 'register' %}"><button>Sign Up</button></a>
+        <li>
+            <a href="{% url 'register' %}"><button>Sign Up</button></a>
+        </li>
     {% endif %}
     <a href="{% url 'cart_detail' %}" class="cart-button">View Cart</a>
 
