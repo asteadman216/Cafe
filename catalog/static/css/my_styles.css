@@ -47,7 +47,7 @@ p {
 
 /* Heading Style */
 .heading {
-    color: rgb(255, 255, 0);
+    color: rgb(2, 14, 251);
     padding: 5px;
     display: inline;
     background-color: rgba(255, 255, 255, 0.5);
@@ -91,8 +91,21 @@ p {
 
 /* Darker Colorful Div */
 .mycolour1 {
-    color: rgb(255, 255, 255);
-    background-color: rgb(71, 151, 177);
-    padding: 10px; /* Added padding */
+    color: #000000;
+    background-color: rgba(244, 236, 236, 0.32);
+    border: 1px solid rgba(246, 246, 246, 0.23);
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px; /* Increased padding for better spacing */
+    margin: 0; /* Removed default margin */
+    border-radius: 5px;
+}
+
+.homepage {
+    background-image: url(static/images/coffee4.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
 }

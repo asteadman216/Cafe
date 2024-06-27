@@ -8,8 +8,17 @@
     <meta charset="UTF-8">
     <title>Coffee List</title>
     <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
+    <style>
+        body{
+            background-image: url("{% static 'images/coffee1.jpg' %}");
+            background-size: auto;
+            background-repeat: repeat;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
+<div class="mylink">
     <h1>Coffee Menu</h1>
     <ul>
         <li>Latte</li>
@@ -18,6 +27,10 @@
         <li>Americano</li>
         <li>Capuccino</li>
     </ul>
+    <p class="image-contain">
+      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+    </p>
+</div>
 </body>
 </html>
 

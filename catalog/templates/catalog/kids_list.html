@@ -7,6 +7,14 @@
     <meta charset="UTF-8">
     <title>Kid's Drink List</title>
     <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
+    <style>
+        body{
+            background-image: url("{% static 'images/kids_option.jpeg' %}");
+            background-size: auto;
+            background-repeat: repeat-x;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
     <h1>Kid's Drink Menu</h1>
@@ -15,5 +23,8 @@
         <li>{{ kids.get_drink_size_display }} {{ kids.get_drink_flavor_display }} ({{ kids.get_drink_temp_display }})</li>
         {% endfor %}
     </ul>
+    <p class="image-contain">
+      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+    </p>
 </body>
 </html>
