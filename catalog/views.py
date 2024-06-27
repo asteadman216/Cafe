@@ -1,13 +1,18 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
-from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
+# views.py
+
+from django.shortcuts import render, get_object_or_404, redirect, render
+from django.views.generic import DetailView
+from django.views.generic import ListView
+from django.views.generic import CreateView
+from django.views.generic import DeleteView
+from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from .models import Coffee, Tea, Kids
 from .forms import CoffeeForm, TeaForm, KidsForm
 from django.contrib.auth.views import LoginView
-from .forms import CoffeeFilterForm, TeaFilterForm, KidsFilterForm
+from .forms import CoffeeFilterForm
+from .forms import TeaFilterForm
+from .forms import KidsFilterForm
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem
 from .forms import CartAddProductForm
@@ -66,8 +71,7 @@ def add_kids(request):
     return render(request, 'add_kids.html', {'form': form})
 
 def coffee_detail(request, pk):
-    coffee = Coffee.objects.get(pk=1)
-    price = coffee.get_price()
+    coffee = get_object_or_404(Coffee, pk=pk)
     return render(request, 'catalog/coffee_detail.html', {'coffee': coffee})
 
 def tea_detail(request, pk):
@@ -214,33 +218,74 @@ class KidsUpdateView(UpdateView):
         # Get the Coffee object based on the URL parameter 'pk'
         return get_object_or_404(Kids, pk=self.kwargs['pk'])
 
-def custom_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Redirect to a success page.
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+class CustomLoginView(LoginView):
+    template_name = 'catalog/login.html'
 
-def custom_logout(request):
-    logout(request)
-    return redirect('home')
+def coffee_menu(request):
+    form = CoffeeFilterForm(request.GET)
+    coffees = Coffee.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['drink_type']:
+            coffees = coffees.filter(drink_type=form.cleaned_data['drink_type'])
+        if form.cleaned_data['drink_temp']:
+            coffees = coffees.filter(drink_temp=form.cleaned_data['drink_temp'])
+        if form.cleaned_data['drink_flavor']:
+            coffees = coffees.filter(drink_flavor=form.cleaned_data['drink_flavor'])
+        if form.cleaned_data['drink_size']:
+            coffees = coffees.filter(drink_size=form.cleaned_data['drink_size'])
+
+    context = {
+        'form': form,
+        'coffees': coffees
+    }
+    return render(request, 'catalog/coffee_menu.html', context)
+
+def tea_menu(request):
+    form = TeaFilterForm(request.GET)
+    teas = Tea.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['drink_type']:
+            teas = tea.filter(drink_tea=form.cleaned_data['drink_type'])
+        if form.cleaned_data['drink_temp']:
+            teas = tea.filter(drink_temp=form.cleaned_data['drink_temp'])
+        if form.cleaned_data['drink_flavor']:
+            teas = tea.filter(drink_tea_syrup=form.cleaned_data['drink_flavor'])
+        if form.cleaned_data['drink_size']:
+            teas = tea.filter(drink_size=form.cleaned_data['drink_size'])
+
+    context = {
+        'form': form,
+        'teas': teas
+    }
+    return render(request, 'catalog/tea_menu.html', context)
+
+def kids_menu(request):
+    form = KidsFilterForm(request.GET)
+    kids = Kids.objects.all()
+
+    if form.is_valid():
+        if form.cleaned_data['drink_type']:
+            kids = kids.filter(drink_kids=form.cleaned_data['drink_type'])
+        if form.cleaned_data['drink_temp']:
+            kids = kids.filter(drink_temp=form.cleaned_data['drink_temp'])
+        if form.cleaned_data['drink_flavor']:
+            kids = kids.filter(drink_kids_flavor=form.cleaned_data['drink_flavor'])
+        if form.cleaned_data['drink_size']:
+            kids = kids.filter(drink_size=form.cleaned_data['drink_size'])
+
+    context = {
+        'form': form,
+        'kids': kids
+    }
+    return render(request, 'catalog/kids_menu.html', context)
 
 @login_required
 def cart_detail(request):
-    cart_items = CartItem.objects.filter(cart=cart)
+    cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
-    context = {
-        'cart_items': cart_items,
-        'total_price': total_price,
-    }
-    return render(request, 'cart/templates/catalog/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
+    return render(request, 'cart/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
 
 @login_required
 def add_to_cart(request, product_id):
@@ -268,6 +313,3 @@ def update_cart(request, cart_item_id):
     else:
         form = CartAddProductForm(instance=cart_item)
     return render(request, 'cart/update_cart.html', {'form': form, 'cart_item': cart_item})
-
-def home(request):
-    return render(request, 'home.html')

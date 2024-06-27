@@ -1,92 +1,93 @@
+/* General Heading Style */
 h1 {
-    font-family:"Lucida Grande", "Courier New", monospace;
+    font-family: "Lucida Grande", "Courier New", monospace;
     color: chartreuse;
     background-color: rgba(161, 166, 158, 0.5);
     text-align: center;
-    font-size: x-large;
-    display: inline;
+    font-size: xx-large; /* Increased font size */
     font-weight: normal;
+    padding: 20px; /* Increased padding for better spacing */
+    margin: 0; /* Removed default margin */
+    border-radius: 5px;
 }
 
+/* Paragraph Style */
+p {
+    font-weight: bold; /* Set font weight to bold */
+    text-align: center; /* Center align the paragraph */
+    margin-top: 10px; /* Add some top margin for spacing */
+    color: rgb(0, 0, 0); /* Text color */
+    padding: 5px; /* Increased padding */
+    display: inline-block; /* Display as inline-block for centered alignment */
+    background-color: rgba(209, 221, 217, 0.5); /* Background color with opacity */
+    border-radius: 5px;
+}
+
+/* Container for centering */
+.container {
+    text-align: center; /* Center align content inside container */
+}
+
+/* Container for Images */
 .image-contain {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 20px;
+    margin: 20px 0; /* Adjusted margin */
 }
 
+/* Small Images */
 .image-small {
-    width:30%;
-    height:auto;
-    align-items: center;
+    width: 30%; /* Adjusted width */
+    height: auto;
+    margin-top: 10px; /* Adjusted margin */
 }
 
+/* Heading Style */
 .heading {
-  color:rgb(255, 255, 0);
-  padding: 5px;
-  display:inline;
-  background-color:rgba(255, 255, 255, 0.5);
-  text-align: center;
+    color: rgb(255, 255, 0);
+    padding: 5px;
+    display: inline;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
 }
 
-p {
-  color:rgb(46, 250, 148);
-  padding: 1px;
-  display:inline;
-  background-color:rgba(72, 163, 131, 0.5);
-  text-align: center;
-}
-
-.image-contain {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: bottom 20px;
-}
-
-.image-small {
-  width:10%;
-  height:auto;
-  align-items:center;
-  margin-top: 15px;
-}
-
-
+/* Borders */
 .border {
-  border: 5px solid #07bbf2;
-  background-color: rgba(10, 10, 10, 0.5);
-}
-.border1 {
-  background-color: rgba(10, 10, 10, 0.5);
-  color:rgb(255, 255, 255);
+    border: 5px solid #07bbf2;
+    background-color: rgba(10, 10, 10, 0.5);
 }
 
+/* Table Styles */
 .mytable {
-  color:black;
-  background-color: rgb(71, 151, 177);
-  border: 1px solid black;
-  width: 100%;
+    color: black;
+    background-color: rgb(71, 151, 177);
+    border: 1px solid black;
+    width: 100%;
 }
 
 .mytr {
-  color:black;
-  background-color: rgb(71, 151, 177);
-  border: 1px solid black;
-  text-align: center;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: large;
+    color: black;
+    background-color: rgb(71, 151, 177);
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
 }
 
+/* Colorful Div */
 .mycolour {
-  color:rgb(0, 132, 121);
-  background-color: rgb(196, 247, 248);
-  align-items: center;
+    color: rgb(0, 132, 121);
+    background-color: rgb(196, 247, 248);
+    padding: 10px; /* Added padding */
+    text-align: center;
 }
 
+/* Darker Colorful Div */
 .mycolour1 {
-  color:rgb(0, 0, 0);
-  background-color: rgb(71, 151, 177);
-  align-items: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(71, 151, 177);
+    padding: 10px; /* Added padding */
+    text-align: center;
 }
