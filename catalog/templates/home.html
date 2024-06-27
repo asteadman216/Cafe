@@ -20,9 +20,12 @@
     <h1>Welcome to the Cafe</h1>
     <br>
     <p>Enjoy your Drinks!!!</p><br>
-    <a href="{% url 'coffee_list' %}">Coffees</a>
-    <a href="{% url 'tea_list' %}">Teas</a>
-    <a href="{% url 'kids_list' %}">Kids Drinks</a>
+    <a class="mylink" href="{% url 'coffee_list' %}">Coffees</a>
+    <br><img src="{% static 'images/coffee_small1.jpeg' alt="Coffee Image" %}" class="image-small"><br>
+    <a class="mylink" href="{% url 'tea_list' %}">Teas</a>
+    <br><img src="{% static 'images/tea_small1.jpeg' alt="Tea Image" %}" class="image-small"><br>
+    <a class="mylink" href="{% url 'kids_list' %}">Kids Drinks</a>
+    <br><img src="{% static 'images/kids_option.jpeg' alt="Kids options" %}" class="image-small"><br>
     {% if user.is_authenticated %}
         <p>Welcome, {{ user.username }}!</p>
         <form method="post" action="{% url 'logout' %}">
@@ -30,12 +33,14 @@
             <button type="submit">Logout</button>
         </form>
     {% else %}
-        <a href="{% url 'login' %}"><button>Login</button></a>
+        <li>
+            <a href="{% url 'login' %}"><button>Login</button></a>
+        </li>
         <li>
             <a href="{% url 'register' %}"><button>Sign Up</button></a>
         </li>
     {% endif %}
-    <a href="{% url 'cart_detail' %}" class="cart-button">View Cart</a>
+    <a class="mylink" href="{% url 'cart_detail' %}" class="cart-button">View Cart</a>
 
     {% block content %}
     {% endblock %}

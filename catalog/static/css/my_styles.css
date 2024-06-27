@@ -39,9 +39,10 @@ p {
 
 /* Small Images */
 .image-small {
-    width: 30%; /* Adjusted width */
-    height: auto;
+    width: 2in; /* Adjusted width */
+    height: 2in;
     margin-top: 10px; /* Adjusted margin */
+    opacity: 0.90;
 }
 
 /* Heading Style */
@@ -67,13 +68,17 @@ p {
     width: 100%;
 }
 
-.mytr {
-    color: black;
-    background-color: rgb(71, 151, 177);
-    border: 1px solid black;
+.mylink {
+    color: #02e8fd;
+    background-color: rgba(255, 167, 0, 0.27);
+    border: 1px solid rgba(227, 134, 10, 0.23);
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: large;
+    font-weight: bold;
+    padding: 10px; /* Increased padding for better spacing */
+    margin: 0; /* Removed default margin */
+    border-radius: 5px;
 }
 
 /* Colorful Div */
