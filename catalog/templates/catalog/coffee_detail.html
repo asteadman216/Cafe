@@ -14,5 +14,9 @@
     <p><strong>Temperature:</strong> {{ coffee.get_drink_temp_display }}</p>
     <p><strong>Type:</strong> {{ coffee.get_drink_type_display }} </p>
     <!-- Add more details as needed -->
+<form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Add to Cart</button>
+</form>
 </body>
 </html>

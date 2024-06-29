@@ -1,0 +1,9 @@
+
+body {
+    background-color: lemonchiffon;
+}
+
+td {
+    border: 2px, solid black;
+    border-collapse: collapse;
+}

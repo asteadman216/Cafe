@@ -285,7 +285,7 @@ def kids_menu(request):
 def cart_detail(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
-    return render(request, 'cart/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
+    return render(request, 'cart/templates/catalog/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
 
 @login_required
 def add_to_cart(request, product_id):

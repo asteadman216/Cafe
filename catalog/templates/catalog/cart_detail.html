@@ -1,0 +1,24 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+<html>
+{% block content %}
+<h1>Your Cart</h1>
+{% if cart.items.all %}
+    <ul>
+        {% for item in cart.items.all %}
+            <li>{{ item.product.name }} - {{ item.quantity }} x ${{ item.product.price }} = ${{ item.get_total_price }}</li>
+            <form action="{% url 'cart:remove_from_cart' item.product.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Remove</button>
+            </form>
+        {% endfor %}
+    </ul>
+    <p>Total: ${{ cart.get_total_price }}</p>
+{% else %}
+    <p>Your cart is empty</p>
+{% endif %}
+<a href="{% url 'catalog:product_list' %}">Continue Shopping</a>
+{% endblock %}
+</html>
