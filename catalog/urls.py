@@ -10,5 +10,5 @@ urlpatterns = [
     path('coffee-menu/', views.coffee_menu, name='coffee_menu'),
     path('tea-menu/', views.tea_menu, name='tea_menu'),
     path('kids-menu/', views.kids_menu, name='kids_menu'),
-    path('cart/', views.cart_detail, name='cart_detail'),
+    path('cart_detail/', views.cart_detail, name='cart_detail'),
 ]
