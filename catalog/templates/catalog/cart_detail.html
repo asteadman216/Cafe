@@ -3,9 +3,24 @@
 {% load crispy_forms_filters %}
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Cart</title>
+    <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
+    <style>
+        body{
+            background-image: url("{% static 'images/coffee_main.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+    </style>
+</head>
 {% block content %}
 <h1>Shopping Cart</h1>
-
+<p class="image-contain">
+  <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+</p>
 {% if cart_items %}
     <table>
         <thead>
