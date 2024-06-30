@@ -26,8 +26,23 @@ p {
 /* Container for centering */
 .container {
     text-align: center; /* Center align content inside container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+.grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+.grid-item {
+    width: 200px; /* Adjust the width as needed */
+    text-align: center;
+}
 /* Container for Images */
 .image-contain {
     display: flex;
@@ -70,8 +85,8 @@ p {
 
 .mylink {
     color: #02e8fd;
-    background-color: rgba(255, 167, 0, 0.27);
-    border: 1px solid rgba(227, 134, 10, 0.23);
+    background-color: rgba(255, 167, 0, 0.85);
+    border: 1px solid rgba(255, 148, 0, 0.44);
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: large;
