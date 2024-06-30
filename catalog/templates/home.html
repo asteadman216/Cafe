@@ -18,7 +18,6 @@
 <body>
 <div class="container">
     <h1>Welcome to the Cafe</h1>
-    <br>
     {% if user.is_authenticated %}
         <p>Welcome, {{ user.username }}!</p>
         <form method="post" action="{% url 'logout' %}">
