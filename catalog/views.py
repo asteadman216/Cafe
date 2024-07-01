@@ -314,3 +314,7 @@ def update_cart(request, cart_item_id):
     else:
         form = CartAddProductForm(instance=cart_item)
     return render(request, 'cart/update_cart.html', {'form': form, 'cart_item': cart_item})
+
+@login_required
+def payment(request):
+    return render(request, 'catalog/payment.html')

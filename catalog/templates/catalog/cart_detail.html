@@ -29,11 +29,29 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        .total-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .checkout-button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: green;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <h1>My Cart</h1>
     <div id="cart"></div>
+    <div class="total-price" id="total-price"></div>
+    <a href="{% url 'payment' %}" class="checkout-button" id="checkout-button" style="display: none;">Proceed to Payment</a>
     <p class="image-contain">
       <a class="heading" href="{% url 'home' %}">Back to HomePage</a>
     </p>
@@ -44,10 +62,13 @@
 
             // Get the cart div
             const cartDiv = document.getElementById('cart');
+            const totalPriceDiv = document.getElementById('total-price');
+            const checkoutButton = document.getElementById('checkout-button');
 
             // Function to display the cart
             const displayCart = () => {
                 cartDiv.innerHTML = '';
+                let total = 0;
                 cart.forEach((item, index) => {
                     const itemDiv = document.createElement('div');
                     itemDiv.classList.add('cart-item');
@@ -57,11 +78,19 @@
                         <button class="delete-button" data-index="${index}">Delete</button>
                     `;
                     cartDiv.appendChild(itemDiv);
+                    total += item.price;
                 });
 
-                // Display a message if the cart is empty
-                if (cart.length === 0) {
+                // Display the total price
+                totalPriceDiv.innerHTML = `Total: $${total.toFixed(2)}`;
+
+                // Show or hide the checkout button
+                if (cart.length > 0) {
+                    checkoutButton.style.display = 'block';
+                } else {
+                    totalPriceDiv.innerHTML = '';
                     cartDiv.innerHTML = '<p>Your cart is empty.</p>';
+                    checkoutButton.style.display = 'none';
                 }
             };
 
