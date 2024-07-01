@@ -1,22 +1,233 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Coffee Details</title>
-    <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
+    <meta charset="UTF-8">
+    <title>Coffee List</title>
+    <link  rel="stylesheet" href= {% static 'css/coffee_menu.css' %}>
 </head>
 <body>
-    <h1>Coffee Details</h1>
-    <p><strong>Size:</strong> {{ coffee.get_drink_size_display }}</p>
-    <p><strong>Flavor:</strong> {{ coffee.get_drink_flavor_display }}</p>
-    <p><strong>Temperature:</strong> {{ coffee.get_drink_temp_display }}</p>
-    <p><strong>Type:</strong> {{ coffee.get_drink_type_display }} </p>
-    <!-- Add more details as needed -->
-<form action="{% url 'cart:add_to_cart' product.id %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Add to Cart</button>
-</form>
+<div class="mylink">
+    <h1>Coffee Menu</h1>
+    <table>
+        <tr>
+            <th>Coffee Type</th>
+            <th>Description</th>
+            <th>Size</th>
+            <th>Flavor</th>
+            <th>Temperature</th>
+            <th>Base Price</th>
+            <th>Add to Cart</th>
+        </tr>
+        <tr>
+            <td>Latte</td>
+            <td>Espresso with milk</td>
+            <td>
+                <select id="latte-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="latte-flavor">
+                    <option value="vanilla">Vanilla</option>
+                    <option value="hazelnut">Hazelnut</option>
+                    <option value="caramel">Caramel</option>
+                    <option value="white mocha">White Mocha</option>
+                    <option value="mocha">Mocha</option>
+                    <option value="toffee">Toffee</option>
+                    <option value="butterscotch">Butterscotch</option>
+                    <option value="sugar free vanilla">Sugar Free Vanilla</option>
+                    <option value="sugar free caramel">Sugar Free Caramel</option>
+                    <option value="sugar free mocha">Sugar Free Mocha</option>
+                </select>
+            </td>
+            <td>
+                <select id="latte-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$6.00</td>
+            <td><button onclick="addToCart('Latte', 'latte-size', 'latte-flavor', 'latte-temp', 6.00)">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td>Pour Over</td>
+            <td>Course ground coffee brewed directly into your cup</td>
+            <td>
+                <select id="pour-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="pour-flavor">
+                    <option value="vanilla">Vanilla</option>
+                    <option value="hazelnut">Hazelnut</option>
+                    <option value="caramel">Caramel</option>
+                    <option value="white mocha">White Mocha</option>
+                    <option value="mocha">Mocha</option>
+                    <option value="toffee">Toffee</option>
+                    <option value="butterscotch">Butterscotch</option>
+                    <option value="sugar free vanilla">Sugar Free Vanilla</option>
+                    <option value="sugar free caramel">Sugar Free Caramel</option>
+                    <option value="sugar free mocha">Sugar Free Mocha</option>
+                </select>
+            <td>
+                <select id="pour-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$5.00</td>
+            <td><button onclick="addToCart('Pour Over', 'pour-size', 'pour-flavor', 'pour-temp', 5.00)">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td>Drip Brew</td>
+            <td>Traditionally brewed coffee</td>
+            <td>
+                <select id="brew-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="brew-flavor">
+                    <option value="vanilla">Vanilla</option>
+                    <option value="hazelnut">Hazelnut</option>
+                    <option value="caramel">Caramel</option>
+                    <option value="white mocha">White Mocha</option>
+                    <option value="mocha">Mocha</option>
+                    <option value="toffee">Toffee</option>
+                    <option value="butterscotch">Butterscotch</option>
+                    <option value="sugar free vanilla">Sugar Free Vanilla</option>
+                    <option value="sugar free caramel">Sugar Free Caramel</option>
+                    <option value="sugar free mocha">Sugar Free Mocha</option>
+                </select>
+            </td>
+            <td>
+                <select id="pour-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('Drip Brew', 'brew-size', 'brew-flavor', 'brew-temp', 4.00)">Add To Cart</button></td>
+        </tr>
+        <tr>
+            <td>Americano</td>
+            <td>Espresso with water</td>
+            <td>
+                <select id="americano-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="americano-flavor">
+                    <option value="vanilla">Vanilla</option>
+                    <option value="hazelnut">Hazelnut</option>
+                    <option value="caramel">Caramel</option>
+                    <option value="white mocha">White Mocha</option>
+                    <option value="mocha">Mocha</option>
+                    <option value="toffee">Toffee</option>
+                    <option value="butterscotch">Butterscotch</option>
+                    <option value="sugar free vanilla">Sugar Free Vanilla</option>
+                    <option value="sugar free caramel">Sugar Free Caramel</option>
+                    <option value="sugar free mocha">Sugar Free Mocha</option>
+                </select>
+            </td>
+            <td>
+                <select id="americano-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$6.00</td>
+            <td><button onclick="addToCart('Americano', 'americano-size', 'americano-flavor', 'americano-temp',  6.00)">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td>Capuccino</td>
+            <td>Espresso with steamed milk and foam</td>
+            <td>
+                <select id="capuccino-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="capuccino-flavor">
+                    <option value="vanilla">Vanilla</option>
+                    <option value="hazelnut">Hazelnut</option>
+                    <option value="caramel">Caramel</option>
+                    <option value="white mocha">White Mocha</option>
+                    <option value="mocha">Mocha</option>
+                    <option value="toffee">Toffee</option>
+                    <option value="butterscotch">Butterscotch</option>
+                    <option value="sugar free vanilla">Sugar Free Vanilla</option>
+                    <option value="sugar free caramel">Sugar Free Caramel</option>
+                    <option value="sugar free mocha">Sugar Free Mocha</option>
+                </select>
+            </td>
+            <td>
+                <select id="capuccino-temp">
+                    <option value="hot">Hot Wet (Little Foam)</option>
+                    <option value="iced">Hot Dry (Extra Foam)</option>
+                </select>
+            </td>
+            <td>$7.00</td>
+            <td><button onclick="addToCart('Capuccino', 'capuccino-size', 'capuccino-flavor', 'capuccino-temp', 7.00)">Add to Cart</button></td>
+        </tr>
+    </table>
+    <p class="image-contain">
+      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+    </p>
+</div>
+
+<script>
+    function addToCart(productName, sizeSelectId, flavorSelectId, tempSelectId, basePrice) {
+        const sizeSelect = document.getElementById(sizeSelectId);
+        const selectedSize = sizeSelect.value;
+        const flavorSelect = document.getElementById(flavorSelectId);
+        const selectedFlavor = flavorSelect.value;
+        const tempSelect = document.getElementById(tempSelectId);
+        const selectedTemp = tempSelect.value;
+        let price;
+
+        switch (selectedSize) {
+            case 'small':
+                price = basePrice;
+                break;
+            case 'medium':
+                price = basePrice + 1.00;
+                break;
+            case 'large':
+                price = basePrice + 2.00;
+                break;
+            default:
+                price = basePrice;
+        }
+
+        // Get existing cart items from local storage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add the new product to the cart
+        cart.push({ name: `${productName} (${selectedSize}), ${selectedFlavor})`, price: price });
+
+        // Save the updated cart back to local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert(`${productName} (${selectedSize}, ${selectedFlavor}, ${selectedTemp}) has been added to your cart for $${price.toFixed(2)}!`);
+    }
+</script>
 </body>
 </html>
+
