@@ -8,12 +8,34 @@
     <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>My Cart</title>
     <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
+    <style>
+        .cart-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .cart-item h2, .cart-item p {
+            margin: 0;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>My Cart</h1>
     <div id="cart"></div>
     <p class="image-contain">
-      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+      <a class="heading" href="{% url 'home' %}">Back to HomePage</a>
     </p>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -23,18 +45,43 @@
             // Get the cart div
             const cartDiv = document.getElementById('cart');
 
-            // Display each item in the cart
-            cart.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('cart-item');
-                itemDiv.innerHTML = `<h2>${item.name}</h2><p>$${item.price.toFixed(2)}</p>`;
-                cartDiv.appendChild(itemDiv);
-            });
+            // Function to display the cart
+            const displayCart = () => {
+                cartDiv.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item');
+                    itemDiv.innerHTML = `
+                        <h2>${item.name}</h2>
+                        <p>$${item.price.toFixed(2)}</p>
+                        <button class="delete-button" data-index="${index}">Delete</button>
+                    `;
+                    cartDiv.appendChild(itemDiv);
+                });
 
-            // Display a message if the cart is empty
-            if (cart.length === 0) {
-                cartDiv.innerHTML = '<p>Your cart is empty.</p>';
-            }
+                // Display a message if the cart is empty
+                if (cart.length === 0) {
+                    cartDiv.innerHTML = '<p>Your cart is empty.</p>';
+                }
+            };
+
+            // Function to handle deleting an item
+            const deleteItem = (index) => {
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                displayCart();
+            };
+
+            // Display the initial cart
+            displayCart();
+
+            // Event listener for delete buttons
+            cartDiv.addEventListener('click', (e) => {
+                if (e.target.classList.contains('delete-button')) {
+                    const index = e.target.getAttribute('data-index');
+                    deleteItem(index);
+                }
+            });
         });
     </script>
 </body>

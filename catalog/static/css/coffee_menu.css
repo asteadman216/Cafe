@@ -23,3 +23,15 @@ td {
     background-color: rgba(255, 255, 255, 0.5);
     text-align: center;
 }
+
+p {
+    font-weight: bold; /* Set font weight to bold */
+    text-align: center; /* Center align the paragraph */
+    margin-top: 10px; /* Add some top margin for spacing */
+    color: rgb(0, 0, 0); /* Text color */
+    padding: 5px; /* Increased padding */
+    display: inline-block; /* Display as inline-block for centered alignment */
+    background-color: rgba(209, 221, 217, 0.5); /* Background color with opacity */
+    border-radius: 5px;
+}
+
