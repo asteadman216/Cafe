@@ -46,7 +46,7 @@
     <form id="payment-form">
         <div class="form-group">
             <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" name="card_number" required>
+            <input type="text" id="card-number" name="card_number" pattern="\d{16}" title="Card number must be 16 digits" required>
         </div>
         <div class="form-group">
             <label for="expiry-date">Expiry Date</label>
@@ -54,7 +54,7 @@
         </div>
         <div class="form-group">
             <label for="cvv">CVV</label>
-            <input type="text" id="cvv" name="cvv" required>
+            <input type="text" id="cvv" name="cvv" pattern="\d{3}" title="CVV must be 3 digits" required>
         </div>
         <button type="submit" class="submit-button">Submit Payment</button>
     </form>
@@ -64,6 +64,15 @@
     <script>
         document.getElementById('payment-form').addEventListener('submit', function(e) {
             e.preventDefault();
+
+            const cardNumber = document.getElementById('card-number').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber.length !== 16 || cvv.length !== 3) {
+                alert('Please enter a valid card number and CVV.');
+                return;
+            }
+
             // You can add your payment processing logic here
             alert('Payment submitted successfully!');
             localStorage.removeItem('cart');
