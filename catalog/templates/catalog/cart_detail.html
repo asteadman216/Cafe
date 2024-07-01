@@ -5,57 +5,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title>My Cart</title>
     <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
-    <style>
-        body{
-            background-image: url("{% static 'images/coffee_main.jpg' %}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: -1;
-        }
-    </style>
 </head>
-{% block content %}
-<h1>Shopping Cart</h1>
-<p class="image-contain">
-  <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
-</p>
-{% if cart_items %}
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-            <tr>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>${{ item.product.price }}</td>
-                <td>${{ item.product.price|floatformat:2 }}</td>
-                <td>${{ item.product.price|floatformat:2 }}</td>
-                <td>${{ item.quantity|floatformat:2 }}</td>
-                <td>
-                    <a href="{% url 'update_cart' item.id %}">Update</a>
-                    <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<body>
+    <h1>My Cart</h1>
+    <div id="cart"></div>
+    <p class="image-contain">
+      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+    </p>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get cart items from local storage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    <p><strong>Total Price: ${{ total_price }}</strong></p>
+            // Get the cart div
+            const cartDiv = document.getElementById('cart');
 
-    <a href="{% url 'checkout' %}">Proceed to Checkout</a>
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
+            // Display each item in the cart
+            cart.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `<h2>${item.name}</h2><p>$${item.price.toFixed(2)}</p>`;
+                cartDiv.appendChild(itemDiv);
+            });
 
-{% endblock %}
+            // Display a message if the cart is empty
+            if (cart.length === 0) {
+                cartDiv.innerHTML = '<p>Your cart is empty.</p>';
+            }
+        });
+    </script>
+</body>
 </html>
