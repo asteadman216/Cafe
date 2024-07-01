@@ -7,3 +7,19 @@ td {
     border: 2px, solid black;
     border-collapse: collapse;
 }
+/* Container for Images */
+.image-contain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px 0; /* Adjusted margin */
+}
+/* Heading Style */
+.heading {
+    color: rgb(2, 14, 251);
+    padding: 5px;
+    display: inline;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}

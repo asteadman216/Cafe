@@ -11,4 +11,5 @@ urlpatterns = [
     path('tea-menu/', views.tea_menu, name='tea_menu'),
     path('kids-menu/', views.kids_menu, name='kids_menu'),
     path('cart_detail/', views.cart_detail, name='cart_detail'),
+    path('add_to_cart/<int:product_id>/',views.add_to_cart, name='add_to_cart'),
 ]

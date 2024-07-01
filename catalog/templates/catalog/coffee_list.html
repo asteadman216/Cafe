@@ -1,3 +1,50 @@
+{#{% load static %}#}
+{#{% load crispy_forms_tags %}#}
+{#{% load crispy_forms_filters %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Coffee List</title>#}
+{#    <link  rel="stylesheet" href= {% static 'css/coffee_menu.css' %}>#}
+{#</head>#}
+{#<body>#}
+{#<div class="mylink">#}
+{#    <h1>Coffee Menu</h1>#}
+{#    <table>#}
+{#        <tr>#}
+{#            <th>Coffee Type</th>#}
+{#            <th>Description</th>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Latte</td>#}
+{#            <td>Espresso with milk *may be served hot or iced*</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Pour Over</td>#}
+{#            <td>Course ground coffee brewed directly into your cup</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Drip Brew</td>#}
+{#            <td>Traditionally brewed coffee *may be served hot or iced*</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Americano</td>#}
+{#            <td>Espresso with water *may be served hot or iced*</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>Capuccino</td>#}
+{#            <td>Espresso with steamed milk and foam</td>#}
+{#        </tr>#}
+{#    </table>#}
+{#    <p class="image-contain">#}
+{#      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>#}
+{#    </p>#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+
 {% load static %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
@@ -6,42 +53,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Coffee List</title>
-    <link  rel="stylesheet" href= {% static 'css/coffee_menu.css' %}>
+    <title>Coffee Menu</title>
+    <link rel="stylesheet" href="{% static 'css/coffee_menu.css' %}">
+    <style>
+        body {
+            background-image: url('{% static 'images/coffee2.jpg' %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+        .coffee-table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        .coffee-table th, .coffee-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .coffee-table th {
+            background-color: #f2f2f2;
+        }
+        .coffee-table tbody {
+            color: white;
+            background-color: rgba(165, 42, 42, 0.25); /* Brown with opacity */
+        }
+        .coffee-table img {
+            max-width: 100%;
+            height: auto;
+        }
+        .add-to-cart-form {
+            display: inline-block;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-<div class="mylink">
+<div class="container">
     <h1>Coffee Menu</h1>
-    <table>
-        <tr>
-            <th>Coffee Type</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>Latte</td>
-            <td>Espresso with milk *may be served hot or iced*</td>
-        </tr>
-        <tr>
-            <td>Pour Over</td>
-            <td>Course ground coffee brewed directly into your cup</td>
-        </tr>
-        <tr>
-            <td>Drip Brew</td>
-            <td>Traditionally brewed coffee *may be served hot or iced*</td>
-        </tr>
-        <tr>
-            <td>Americano</td>
-            <td>Espresso with water *may be served hot or iced*</td>
-        </tr>
-        <tr>
-            <td>Capuccino</td>
-            <td>Espresso with steamed milk and foam</td>
-        </tr>
+    <table class="coffee-table">
+        <thead>
+            <tr>
+                <th>Coffee Type</th>
+                <th>Description</th>
+                <th>Add to Cart</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for coffee in coffees %}
+            <tr>
+                <td>{{ coffee.get_drink_type_display }}</td>
+                <td>{{ coffee.description }}</td>
+                <td>
+                    <form class="add-to-cart-form" method="post" action="{% url 'add_to_cart' coffee.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <p class="image-contain">
-      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+        <a class="heading" href="{% url 'home' %}">Back to HomePage</a>
     </p>
 </div>
 </body>
 </html>
-
