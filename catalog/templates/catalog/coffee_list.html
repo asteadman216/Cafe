@@ -10,7 +10,7 @@
     <link  rel="stylesheet" href= {% static 'css/coffee_menu.css' %}>
     <style>
         body{
-            background-image: url(static/images/coffee_main.jpg);
+            background-image: url("{% static 'images/coffee_main.jpg' %}");
             background-size: cover;
             background-repeat: no-repeat;
             z-index: -1;
@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<div class="mylink">
+<div class="drinks">
     <h1>Coffee Menu</h1>
     <table>
         <tr>
@@ -120,7 +120,7 @@
                 </select>
             </td>
             <td>
-                <select id="pour-temp">
+                <select id="brew-temp">
                     <option value="hot">Hot</option>
                     <option value="iced">Iced</option>
                 </select>
