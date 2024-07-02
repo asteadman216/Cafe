@@ -138,17 +138,16 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 import ssl
 
-
-# Function to create an SSL context that ignores SSL certificate verification
+# Function to create an SSL context that ignores SSL certificate verification errors
 def create_unverified_ssl_context():
-    ssl_context = ssl.create_default_context()
-    ssl_context.check_hostname = False
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
     ssl_context.verify_mode = ssl.CERT_NONE
     return ssl_context
 
-
-# Set the custom SSL context as the default HTTPS context
+# Override default HTTPS context to use the custom SSL context without verification
 ssl._create_default_https_context = create_unverified_ssl_context
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
