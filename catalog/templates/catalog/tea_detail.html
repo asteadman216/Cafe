@@ -1,17 +1,108 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Tea Details</title>
     <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
 </head>
 <body>
+<div class="mylink">
     <h1>Tea Details</h1>
-    <p><strong>Size:</strong> {{ coffee.get_drink_size_display }}</p>
-    <p><strong>Flavor:</strong> {{ coffee.get_drink_flavor_display }}</p>
-    <p><strong>Temperature:</strong> {{ coffee.get_drink_temp_display }}</p>
-    <!-- Add more details as needed -->
+    <table>
+        <tr>
+            <th>Tea Types</th>
+            <th>Size</th>
+            <th>Flavor</th>
+            <th>Temperature</th>
+            <th>Base Price</th>
+            <th>Add to Cart</th>
+        </tr>
+        <tr>
+            <td>
+                <select id="tea-type">
+                    <option value="black">Black</option>
+                    <option value="green">Green</option>
+                    <option value="herbal">Herbal</option>
+                    <option value="english breakfast">English Breakfast</option>
+                    <option value="rooibos">Rooibos</option>
+                    <option value="oolong">Oolong</option>
+                    <option value="earl grey">Earl Grey</option>
+                    <option value="masala chai">Masala Chai</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+    </table>
+ <p class="image-contain">
+      <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
+    </p>
+</div>
+
+<script>
+    function addToCart(productName, sizeSelectId, flavorSelectId, tempSelectId, basePrice) {
+        const sizeSelect = document.getElementById(sizeSelectId);
+        const selectedSize = sizeSelect.value;
+        const flavorSelect = document.getElementById(flavorSelectId);
+        const selectedFlavor = flavorSelect.value;
+        const tempSelect = document.getElementById(tempSelectId);
+        const selectedTemp = tempSelect.value;
+        let price;
+
+        switch (selectedSize) {
+            case 'small':
+                price = basePrice;
+                break;
+            case 'medium':
+                price = basePrice + 1.00;
+                break;
+            case 'large':
+                price = basePrice + 2.00;
+                break;
+            default:
+                price = basePrice;
+        }
+
+        // Get existing cart items from local storage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add the new product to the cart
+        cart.push({ name: `${productName} (${selectedSize}), ${selectedFlavor})`, price: price });
+
+        // Save the updated cart back to local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert(`${productName} (${selectedSize}, ${selectedFlavor}, ${selectedTemp}) has been added to your cart for $${price.toFixed(2)}!`);
+    }
+</script>
 </body>
-</html>
+</html>  

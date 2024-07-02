@@ -1,11 +1,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tea List</title>
+    <title>Tea Details</title>
     <link  rel="stylesheet" href= {% static 'css/my_styles.css' %}>
     <style>
         body{
@@ -19,15 +20,289 @@
 <body>
 <div class="mycolour1">
     <h1>Tea Menu</h1>
-    <ul>
-        {% for tea in teas %}
-        <li>{{ tea.get_drink_size_display }} {{ tea.get_drink_flavor_display }} ({{ tea.get_drink_temp_display }})</li>
-        {% endfor %}
-    </ul>
-    <p class="image-contain">
+    <table>
+        <tr>
+            <th>Tea Types</th>
+            <th>Size</th>
+            <th>Flavor</th>
+            <th>Temperature</th>
+            <th>Base Price</th>
+            <th>Add to Cart</th>
+        </tr>
+        <tr>
+            <td>Black</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>Green</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>Herbal</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>English Breakfast</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>Rooibos</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>Oolong</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>Earl Grey</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+        <td>Masala Chai</td>
+            <td>
+                <select id="tea-size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-flavor">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="peach">Peach</option>
+                    <option value="mango">Mango</option>
+                    <option value="lychee">Lychee</option>
+                    <option value="vanilla">Vanilla</option>
+                    <option value="raspberry">Raspberry</option>
+                    <option value="peppermint">Peppermint</option>
+                    <option value="simple syrup">Simple Syrup</option>
+                </select>
+            </td>
+            <td>
+                <select id="tea-temp">
+                    <option value="hot">Hot</option>
+                    <option value="iced">Iced</option>
+                </select>
+            </td>
+            <td>$4.00</td>
+            <td><button onclick="addToCart('tea-type', 'tea-size', 'tea-flavor', 'tea-temp', 4.00)">Add to Cart</button></td>
+        </tr>
+    </table>
+ <p class="image-contain">
       <a class="heading", href="{% url 'home' %}">Back to HomePage</a>
     </p>
-    
 </div>
+
+<script>
+    function addToCart(productName, sizeSelectId, flavorSelectId, tempSelectId, basePrice) {
+        const sizeSelect = document.getElementById(sizeSelectId);
+        const selectedSize = sizeSelect.value;
+        const flavorSelect = document.getElementById(flavorSelectId);
+        const selectedFlavor = flavorSelect.value;
+        const tempSelect = document.getElementById(tempSelectId);
+        const selectedTemp = tempSelect.value;
+        let price;
+
+        switch (selectedSize) {
+            case 'small':
+                price = basePrice;
+                break;
+            case 'medium':
+                price = basePrice + 1.00;
+                break;
+            case 'large':
+                price = basePrice + 2.00;
+                break;
+            default:
+                price = basePrice;
+        }
+
+        // Get existing cart items from local storage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Add the new product to the cart
+        cart.push({ name: `${productName} (${selectedSize}), ${selectedFlavor})`, price: price });
+
+        // Save the updated cart back to local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert(`${productName} (${selectedSize}, ${selectedFlavor}, ${selectedTemp}) has been added to your cart for $${price.toFixed(2)}!`);
+    }
+</script>
 </body>
-</html>
+</html>  

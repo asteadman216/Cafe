@@ -23,3 +23,28 @@ td {
     background-color: rgba(255, 255, 255, 0.5);
     text-align: center;
 }
+
+p {
+    font-weight: bold; /* Set font weight to bold */
+    text-align: center; /* Center align the paragraph */
+    margin-top: 10px; /* Add some top margin for spacing */
+    color: rgb(0, 0, 0); /* Text color */
+    padding: 5px; /* Increased padding */
+    display: inline-block; /* Display as inline-block for centered alignment */
+    background-color: rgba(209, 221, 217, 0.5); /* Background color with opacity */
+    border-radius: 5px;
+}
+
+
+.drinks {
+    color: #02e8fd;
+    background-color: rgba(255, 167, 0, 0.25);
+    border: 1px solid rgba(255, 148, 0, 0.44);
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px; /* Increased padding for better spacing */
+    margin: 0; /* Removed default margin */
+    border-radius: 5px;
+}

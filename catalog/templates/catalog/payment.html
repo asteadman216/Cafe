@@ -1,0 +1,83 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{% static 'css/my_styles.css' %}">
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        .heading {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payment</h1>
+    <form id="payment-form">
+        <div class="form-group">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="card_number" pattern="\d{16}" title="Card number must be 16 digits" required>
+        </div>
+        <div class="form-group">
+            <label for="expiry-date">Expiry Date</label>
+            <input type="text" id="expiry-date" name="expiry_date" placeholder="MM/YY" required>
+        </div>
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" pattern="\d{3}" title="CVV must be 3 digits" required>
+        </div>
+        <button type="submit" class="submit-button">Submit Payment</button>
+    </form>
+    <p class="image-contain">
+        <a class="heading" href="{% url 'cart_detail' %}">Back to Cart</a>
+    </p>
+    <script>
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const cardNumber = document.getElementById('card-number').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber.length !== 16 || cvv.length !== 3) {
+                alert('Please enter a valid card number and CVV.');
+                return;
+            }
+
+            // You can add your payment processing logic here
+            alert('Payment submitted successfully!');
+            localStorage.removeItem('cart');
+            window.location.href = "{% url 'home' %}";
+        });
+    </script>
+</body>
+</html>

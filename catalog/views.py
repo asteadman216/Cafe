@@ -88,7 +88,7 @@ class CoffeeDetailView(DetailView):
     context_object_name = 'coffee'  # Optionally specify the name of the context variable in the template
 
 class TeaDetailView(DetailView):
-    model = Coffee
+    model = Tea
     template_name = 'catalog/tea_detail.html'  # Specify the template for rendering the detail view
     context_object_name = 'tea'  # Optionally specify the name of the context variable in the template
 
@@ -314,3 +314,7 @@ def update_cart(request, cart_item_id):
     else:
         form = CartAddProductForm(instance=cart_item)
     return render(request, 'cart/update_cart.html', {'form': form, 'cart_item': cart_item})
+
+@login_required
+def payment(request):
+    return render(request, 'catalog/payment.html')
