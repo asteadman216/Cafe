@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-6q0(31aa56iw5d_2s#*k((te!h72ps-s(c#zuhpjvcw(t6!4-s
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'ksvarun.pythonanywhere.com']
-
 
 # Application definition
 
@@ -76,7 +74,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'Cafe.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -86,7 +83,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -121,7 +117,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -141,14 +136,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-
-import certifi
 import ssl
 
-# Create an SSL context with certifi's CA bundle
-ssl_context = ssl.create_default_context(cafile=certifi.where())
-ssl._create_default_https_context = lambda: ssl_context
 
+# Function to create an SSL context that ignores SSL certificate verification
+def create_unverified_ssl_context():
+    ssl_context = ssl.create_default_context()
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
+    return ssl_context
+
+
+# Set the custom SSL context as the default HTTPS context
+ssl._create_default_https_context = create_unverified_ssl_context
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
