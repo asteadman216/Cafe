@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth.models import User, Group
-
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
 
 def register(request):
     if request.method == "POST":
@@ -20,3 +21,5 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
+
+

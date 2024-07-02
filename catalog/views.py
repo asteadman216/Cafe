@@ -16,6 +16,11 @@ from .forms import KidsFilterForm
 from django.contrib.auth.decorators import login_required
 from .models import Product, CartItem
 from .forms import CartAddProductForm
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
+
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -318,3 +323,8 @@ def update_cart(request, cart_item_id):
 @login_required
 def payment(request):
     return render(request, 'catalog/payment.html')
+
+#
+# class CustomPasswordResetDoneView(auth_views.PasswordResetDoneView):
+#     template_name = 'registration/password_reset_done.html'
+#     success_url = reverse_lazy('catalog/login')  # Redirect to login page after reset
